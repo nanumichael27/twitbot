@@ -14,7 +14,10 @@ export default class extends BaseSeeder {
       email: 'tester@gmail.com',
       password: await Hash.make('password')
     })
-    await UserFactory.createMany(10)
+    await UserFactory
+    .with('samples', 3)
+    .with('tweets', 3)
+    .createMany(10)
     
   }
 }

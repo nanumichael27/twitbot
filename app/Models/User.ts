@@ -1,5 +1,12 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { 
+  BaseModel,
+  column,
+  hasMany,
+  HasMany,
+ } from '@ioc:Adonis/Lucid/Orm'
+import Sample from './Sample'
+import Tweet from './Tweet'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -11,6 +18,12 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
+  @column()
+  public overview: string
+
+  @column()
+  public max_chars: number
+
   @column({ serializeAs: null })
   public password: string
 
@@ -19,4 +32,11 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(()=> Sample)
+  public samples: HasMany<typeof Sample>
+
+  @hasMany(()=> Tweet)
+  public tweets: HasMany<typeof Tweet>
+
 }
